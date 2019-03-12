@@ -38,10 +38,10 @@ func InitLogger(logPath string, logLevel string) *zap.Logger {
 		MessageKey:     "msg",
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
-		EncodeLevel:    zapcore.LowercaseLevelEncoder,  // 小写编码器
-		EncodeTime:     zapcore.ISO8601TimeEncoder,     // ISO8601 UTC 时间格式
-		EncodeDuration: zapcore.SecondsDurationEncoder, //
-		EncodeCaller:   zapcore.FullCallerEncoder,      // 全路径编码器
+		EncodeLevel:    zapcore.CapitalColorLevelEncoder, // 大写颜色区分不同的level
+		EncodeTime:     zapcore.ISO8601TimeEncoder,       // ISO8601 UTC 时间格式
+		EncodeDuration: zapcore.SecondsDurationEncoder,   //
+		EncodeCaller:   zapcore.ShortCallerEncoder,       // 路径编码器
 		EncodeName:     zapcore.FullNameEncoder,
 	}
 	core := zapcore.NewCore(zapcore.NewConsoleEncoder(encoderConfig), // 编码设置
@@ -51,7 +51,7 @@ func InitLogger(logPath string, logLevel string) *zap.Logger {
 
 	caller := zap.AddCaller()
 	dev := zap.Development()
-	filed := zap.Fields(zap.String("serviceName", "serviceName"))
-	logger := zap.New(core, caller, dev, filed)
+	//filed := zap.Fields(zap.String("serviceName", "serviceName"))
+	logger := zap.New(core, caller, dev)
 	return logger
 }
