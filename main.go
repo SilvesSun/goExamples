@@ -1,8 +1,10 @@
 package main
 
-import "goExample/src/excel"
+import "goExample/src/logCustom"
 
 func main() {
-	excel.ReadExcel(`C:\data\gl\171128175742\R8649_Pre_Marquage_CEDTEST.xlsx`)
-
+	logger := logCustom.InitLogger("test.log", "info")
+	logger.Error("error")
+	logger.Named("root")
+	logger.Info("named logger")
 }
